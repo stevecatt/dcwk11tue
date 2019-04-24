@@ -1,26 +1,80 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import React, { Component }from 'react';
+
+import './App.css';
+import {Stepper} from './Stepper'
+import {CompletedItems, ListItems} from './Todo'
+
+export class App extends Component{
+    constructor() {
+      super()
+
+      this.state = {
+        name: "" ,
+        pendingTasks: [],
+        completedTasks: []
+
+      }
+    }
+  
+
+    taskNameSave = ()=>{
+      let task= this.state.name
+      this.setState({
+      pendingTasks: this.state.pendingTasks.concat(task)
+      })
+    }
+
+    //this is like a .then or callback
+
+    taskNameBox =(e)=>{
+      this.setState({
+        name: e.target.value
+      },()=>{ 
+        console.log(this.state.name)
+      })
+    }
+
+    
+    moveToComplete= (task)=>{
+       this.setState({
+       pendingTasks: this.state.pendingTasks.filter((item)=>item !=task),
+       completedTasks: this.state.pendingTasks.filter((item)=>item ==task)
+     })
+      console.log("why is this firing")
+      console.log(this.state.completedTasks)
+
+
+      }
+    
+    
+  
+
+
+      
+      
+      
+  
+
+
+  render(){
+  
+      return (
+
+            <div className="App">
+            <div>
+              <input onChange ={this.taskNameBox}  type="text" />
+              <button onClick ={this.taskNameSave}> Save</button>
+              <ListItems listItems={this.state.pendingTasks} removeTaskCallback = {this.moveToComplete}></ListItems>
+            </div>
+        
+    
+    
+     
+     
     </div>
   );
+}
 }
 
 export default App;
