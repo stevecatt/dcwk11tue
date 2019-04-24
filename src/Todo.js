@@ -22,7 +22,7 @@ removeTaskCallback = (name) =>{
 
         let taskListItems = tasks.map((task, index)=>{
         
-           //make sure the button calls a function {() => this.props.removeTaskCallback(task)}
+           //make sure the button calls a function {() => this.props.removeTaskCallback(task) if trying to pass something like "task"}
             return <div>
                              <li key={index}>{task}</li>
                         
